@@ -12,7 +12,7 @@
 int main()
 {
   // sock_fd --- socket文件描述符 创建udp套接字
-  int sock_fd = socket(AF_INET, SOCK_DGRAM, 0);
+  int sock_fd = socket(AF_INET, SOCK_DGRAM, 0); //int domain, int type, int protocol
   if(sock_fd < 0)
   {
     perror("create socket failed.");

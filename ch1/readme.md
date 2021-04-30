@@ -12,4 +12,7 @@
 
     对，如果不显式设置的话，就会在随机的端口上监听，客户端无法知道这个随机的端口的值
 
-    
+## 更多资料
+domain, type, protocol 如何搭配
+
+https://blog.csdn.net/lee244868149/article/details/43732025
