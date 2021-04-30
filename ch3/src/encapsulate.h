@@ -1,9 +1,7 @@
-#ifndef __LSC__
-#define __LSC__
+#ifndef __ENCAPSULATE__
+#define __ENCAPSULATE__
 
 #pragma pack(1)
-
-// socket head files
 #include <netdb.h>            // struct addrinfo
 #include <sys/types.h>        // needed for socket(), uint8_t, uint16_t, uint32_t
 #include <sys/socket.h>       // needed for socket()
@@ -23,16 +21,11 @@
 
 // const
 #define MAXETHLEN 1600
-#define ETHER_LSC 0x09ab
-
 
 #define ETHHEADLEN 14
-#define LSCHEADLEN 8
 #define IPHEADLEN 20
 #define UDPHEADLEN 8
 #define TCPHEADLEN 40
-#define LSCLEN 8
-
 
 // udp
 /// --struct
@@ -65,19 +58,6 @@ typedef struct
 }ip;
 
 
-// lsc
-/// --struct
-typedef struct
-{
-    unsigned char lsc_pre[2];
-    unsigned char lsc_colony_id[3];
-    unsigned char lsc_dst;
-    unsigned char lsc_src;
-    unsigned char lsc_ctrl;
-    char* ip_pack; 
-}lsc;
-
-
 
 // eth
 /// --struct
@@ -86,7 +66,7 @@ typedef struct
     unsigned char dst_mac[6];
 	unsigned char src_mac[6];
     unsigned short eth_type_len;
-	char* lsc_pack; 
+	char* ip_pack; 
 }eth;
 
 // tools
@@ -98,4 +78,23 @@ void mac_str2mac(unsigned char* mac_str, unsigned char* mac);
 
 ///
 int hex2dec(unsigned char hex);
+
+
+
+void interface2mac(char* interface,char* src_mac);
+
+// udp
+/// --func
+char* encapsulate_udp(udp *udp_pack,unsigned char* data,int len);
+
+// ip
+/// --func
+char* encapsulate_ip(ip *ip_pack,unsigned char* udp,int len);
+
+
+// eth
+/// --func
+char* encapsulate_eth(eth* eth_pack,unsigned char* ip,int len);
+
+void send_frame(char* interface,char* frame,int len);
 #endif
