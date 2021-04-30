@@ -65,19 +65,6 @@ typedef struct
 }ip;
 
 
-// lsc
-/// --struct
-typedef struct
-{
-    unsigned char lsc_pre[2];
-    unsigned char lsc_colony_id[3];
-    unsigned char lsc_dst;
-    unsigned char lsc_src;
-    unsigned char lsc_ctrl;
-    char* ip_pack; 
-}lsc;
-
-
 
 // eth
 /// --struct
@@ -102,23 +89,9 @@ void extract_udp(unsigned char* udp_frame);
 /// --func
 void extract_ip(unsigned char* ip_frame);
 
-// lsc
-/// --func
-void extract_lsc(unsigned char* lsc_frame);
-
-
 // eth
 /// --func
 void extract_eth(unsigned char* eth_frame);
 
-// tools
-/// 读取网络接口名称的mac地址
-void interface2mac(char* interface,char* src_mac);
-
-/// mac字符串转换为mac地址
-void mac_str2mac(unsigned char* mac_str, unsigned char* mac);
-
-///
-int hex2dec(unsigned char hex);
 
 #endif

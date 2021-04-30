@@ -5,26 +5,14 @@
 
 int main(int argc,char** argv) // 网卡名称
 { 
-
-
-    int protocol;
 	int n_read;
 	unsigned char buffer[MAXETHLEN];
 	unsigned char* eth_frame;
 	int sock_fd;
 	eth_frame = buffer;
 
-    unsigned char src_mac[6]; // 设置发送者的mac
-    if (argc<=1){
-        char *interface="ens34"; // nic name 
-        interface2mac(interface,src_mac);
 
-    }else{
-        char *interface=argv[1]; // nic name
-        interface2mac(interface,src_mac);
-    }
-
-    if((sock_fd = socket(PF_PACKET,SOCK_RAW,htons(ETH_P_ALL))) < 0) // PF_PACKET 收取链路层的数据 
+    if((sock_fd = socket(PF_PACKET,SOCK_RAW,htons(ETH_P_ALL))) < 0) // PF_PACKET 收取链路层的数据 ETH_P_ALL 所有的 etherType 都捕获
     {
         printf("error while creating raw socket :%d\n",sock_fd);
         return -1;
